@@ -1,25 +1,28 @@
 ﻿using Domain.PermissionTypes;
-using Domain.Primitives;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Domain.Permissions
+namespace Application.Permissions.Common
 {
-    public sealed class Permission : AggregateRoot
+    public class PermissionResponse
     {
+
         public long Id { get; private set; }
         public string NameEmployee { get; private set; }
         public string LastNameEmployee { get; private set; }
-        public long PermissionTypeId { get; private set; } // Clave foránea
-        public PermissionType PermissionType { get; private set; } // Navegación a PermissionType
+        public long PermissionTypeId { get; private set; }
         public DateTime Date { get; private set; }
         public string FullName => $"{NameEmployee} {LastNameEmployee}";
-
-        public Permission()
+        public PermissionResponse()
         {
-            
+
         }
-
-        public Permission(string nameEmployee, string lastNameEmployee, long permissionTypeId, DateTime date)
+        public PermissionResponse(long id, string nameEmployee, string lastNameEmployee, long permissionTypeId, DateTime date)
         {
+            Id = id;
             NameEmployee = nameEmployee;
             LastNameEmployee = lastNameEmployee;
             PermissionTypeId = permissionTypeId;

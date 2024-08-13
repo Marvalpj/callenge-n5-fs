@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using ErrorOr;
+using MediatR;
 
 namespace Application.PermissionTypes.Create
 {
-    public class CreatePermissionTypeCommand : IRequest<Unit>
+    public class CreatePermissionTypeCommand : IRequest<ErrorOr<Unit>>
     {
         public string Description { get; set; }
         

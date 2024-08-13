@@ -1,26 +1,23 @@
 ﻿using Domain.Permissions;
+using Microsoft.EntityFrameworkCore;
+using System.Security;
 
 namespace Infraestructure.Persistence.Repositories
 {
     public class PermissionRepository : IPermissionRepository
     {
-        public PermissionRepository()
-        {
-            
-        }
-        public Task Add(Permission permission)
-        {
-            throw new NotImplementedException();
-        }
+        private readonly ApplicationDbContext context;
 
-        public Task<IEnumerable<Permission>> GetAllAsync()
+        public PermissionRepository(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
+        public async Task Add(Permission permission) => await this.context.Permissions.AddAsync(permission);
 
-        public Task<Permission?> GetByIdAsync(long id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IEnumerable<Permission>> GetAllAsync() => await this.context.Permissions.ToListAsync();
+
+        public async Task<Permission?> GetByIdAsync(long id) => await this.context.Permissions.FindAsync(id);
+
+        public void Update(Permission permission) => this.context.Permissions.Update(permission);
     }
 }

@@ -1,6 +1,7 @@
 using Application;
 using Infraestructure;
 using Web.API;
+using Web.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.ApplyMigrations();
 }
+
+app.UseExceptionHandler("/error");
 
 app.UseHttpsRedirection();
 

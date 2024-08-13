@@ -1,15 +1,11 @@
 ﻿using Domain.PermissionTypes;
 using Domain.Primitives;
+using ErrorOr;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.PermissionTypes.Create
 {
-    internal sealed class CreatePermissionTypeCommandHandler : IRequestHandler<CreatePermissionTypeCommand, Unit>
+    public sealed class CreatePermissionTypeCommandHandler : IRequestHandler<CreatePermissionTypeCommand, ErrorOr<Unit>>
     {
         private readonly IPermissionTypeRepository permissionTypeRepository;
         private readonly IUnitOfWork unitOfWork;
@@ -20,18 +16,26 @@ namespace Application.PermissionTypes.Create
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork)); ;
         }
 
-        public async Task<Unit> Handle(CreatePermissionTypeCommand request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<Unit>> Handle(CreatePermissionTypeCommand request, CancellationToken cancellationToken)
         {
-            if(string.IsNullOrEmpty(request.Description))
-                throw new ArgumentNullException(nameof(request.Description));
+            try
+            {
+                if (string.IsNullOrEmpty(request.Description))
+                    return Error.Validation("PermissionType.Description", "Debe enviar el nombre de la descripcion");
 
-            PermissionType permissionType = new PermissionType(request.Description);
+                PermissionType permissionType = new PermissionType(request.Description);
 
-            await permissionTypeRepository.Add(permissionType);
+                await permissionTypeRepository.Add(permissionType);
 
-            await unitOfWork.SaveChangesAsync(cancellationToken);
-            
-            return Unit.Value;
+                await unitOfWork.SaveChangesAsync(cancellationToken);
+
+                return Unit.Value;
+            }
+            catch (Exception ex)
+            {
+                return Error.Failure("CreatePermissionType.Failure", ex.Message);
+            }
         }
+
     }
 }

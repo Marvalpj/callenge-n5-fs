@@ -17,5 +17,7 @@ namespace Infraestructure.Persistence.Repositories
         public async Task<IEnumerable<PermissionType>> GetAllAsync() => await this.context.PermissionTypes.ToListAsync();
 
         public async Task<PermissionType?> GetByIdAsync(long id) => await this.context.PermissionTypes.FindAsync(id);
+
+        public void Update(PermissionType permissionType) => this.context.PermissionTypes.Update(permissionType);
     }
 }

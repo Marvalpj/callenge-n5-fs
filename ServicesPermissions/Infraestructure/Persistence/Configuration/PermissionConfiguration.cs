@@ -31,7 +31,7 @@ namespace Infraestructure.Persistence.Configuration
 
             // Configura la relación con PermissionType
             builder.HasOne(x => x.PermissionType) // Relación de uno a muchos
-                   .WithMany() 
+                   .WithMany(p => p.Permissions) 
                    .HasForeignKey(x => x.PermissionTypeId); // Clave foránea
 
 

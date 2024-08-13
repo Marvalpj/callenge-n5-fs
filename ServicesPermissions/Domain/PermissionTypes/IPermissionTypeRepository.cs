@@ -7,5 +7,6 @@ namespace Domain.PermissionTypes
         Task<IEnumerable<PermissionType>> GetAllAsync();
         Task<PermissionType?> GetByIdAsync(long id);
         Task Add(PermissionType permissionType);
+        void Update(PermissionType permissionType);
     }
 }
