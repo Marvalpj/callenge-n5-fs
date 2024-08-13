@@ -1,17 +1,16 @@
 import { useState } from 'react'
 import './App.css'
+// components @mui
 import API from './api'
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+// components propios
+import PermissionForm from './components/PermissionForm'
 
-
-
+// context 
+import { PermissionProvider } from './Context/Permission.context'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -43,9 +42,36 @@ function App() {
 
 
   return (
-    <>
+    <PermissionProvider>
+      <Grid container spacing={3} sx={{ padding: 2 }}>
+        <Grid item xs={12}>
+          <Card sx={{ width: '100%' }}>
+            <CardHeader title="Gestion de permisos"
+              sx={{
+                textAlign: 'left'
+              }} />
+            <CardContent>
+              <PermissionForm />
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
 
-      <div>
+      <Grid container spacing={3} sx={{ padding: 2 }}>
+        <Grid item xs={12} >
+          <Card sx={{ width: '100%' }}>
+            <CardHeader title="Permisos"
+              sx={{
+                textAlign: 'left'
+              }} />
+            <CardContent>
+
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+      
+      {/* <div>
         <h1>Permission App</h1>
         <form onSubmit={handleSubmit}>
         <Grid container spacing={3} maxWidth={600}>
@@ -85,18 +111,8 @@ function App() {
 
         </Grid>
         </form>
-       
-      </div>
-
-     
-      
-      <Box component="section" sx={{ p: 2, border: '1px dashed grey', display: 'flex', justifyContent: "space-between", marginTop: '100px' }}>
-      <Button fullWidth variant="contained" size='large' onClick={handleTestingAxios}>
-          Testing axios        
-      </Button>
-      </Box>
-
-    </>
+      </div> */}
+    </PermissionProvider>
   )
 }
 
