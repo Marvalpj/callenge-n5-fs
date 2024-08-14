@@ -6,14 +6,17 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
+// sonnner 
+import { Toaster } from 'sonner';
 // components propios
 import PermissionForm from './components/PermissionForm'
+import PermissionTable from './components/PermissionTable'
 
 // context 
-import { PermissionProvider } from './Context/Permission.context'
+import { PermissionProvider, usePermission } from './Context/Permission.context'
 
 function App() {
-  const [count, setCount] = useState(0)
+  
   const [permission, setPermission] = useState('');
 
   const handleChange = (event) => {
@@ -43,6 +46,9 @@ function App() {
 
   return (
     <PermissionProvider>
+      {/*notificaciones */}
+      <Toaster position="top-right" />
+
       <Grid container spacing={3} sx={{ padding: 2 }}>
         <Grid item xs={12}>
           <Card sx={{ width: '100%' }}>
@@ -65,7 +71,7 @@ function App() {
                 textAlign: 'left'
               }} />
             <CardContent>
-
+              <PermissionTable />
             </CardContent>
           </Card>
         </Grid>
