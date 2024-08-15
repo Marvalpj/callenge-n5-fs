@@ -1,6 +1,7 @@
 ﻿using Application.Permissions.Create;
 using Application.Permissions.GetAll;
 using Application.Permissions.GetById;
+using Application.Permissions.Update;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -50,7 +51,16 @@ namespace Web.API.Controllers
             );
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(UpdatePermissionCommand updatePermission, long id)
+        {
+            updatePermission.Id = id;
+            var result = await mediator.Send(updatePermission);
 
-
+            return result.Match(
+                p => Ok(),
+                errors => Problem(errors)
+            );
+        }
     }
 }
