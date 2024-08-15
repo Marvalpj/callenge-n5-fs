@@ -9,24 +9,29 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions   
+  DialogActions
 } from '@mui/material';
 
-import {usePermission} from '../Context/Permission.context'
+import { usePermission } from '../Context/Permission.context'
 
 const PermissionForm = () => {
-  
+
+
   // contexto 
-  const permissionContext = usePermission()
-  // data del form
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [permissionType, setPermissionType] = useState(0);
+  const {
+    createUpdatePermission,
+    permissionsType,
+    permissionFormData,
+    setPermissionFormData,
+    cleanPermissionFormData,
+    createPermissionType
+  } = usePermission()
+
   // new permission description
   const [newPermission, setNewPermission] = useState('');
   // modal
   const [open, setOpen] = useState(false);
-  
+
   // modal metodos
   const handleClickOpen = () => {
     setOpen(true);
@@ -34,19 +39,28 @@ const PermissionForm = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  
+  const CreatePermissionTypehandle = async (event) => {
+    event.preventDefault();
+    console.log(newPermission)
+    await createPermissionType(newPermission)
+    setNewPermission('')
+    setOpen(false);
+  };
 
   // cambia el valor de las variables de estado 
   const handleInputChange = (event) => {
+
     const { name, value } = event.target; // Desestructuramos el nombre y el valor del evento
     switch (name) {
       case 'nameEmployee':
-        setFirstName(value);
+        setPermissionFormData({ ...permissionFormData, nameEmployee: value });
         break;
       case 'lastNameEmployee':
-        setLastName(value);
+        setPermissionFormData({ ...permissionFormData, lastNameEmployee: value });
         break;
       case 'permissionType':
-        setPermissionType(value);
+        setPermissionFormData({ ...permissionFormData, permissionTypeId: value });
         break;
       case 'newPermission':
         setNewPermission(value);
@@ -54,43 +68,34 @@ const PermissionForm = () => {
       default:
         break;
     }
-    
-  };
-  
-  const handlePermissionTypeChange = (event) => {
-    console.log(event.target.value)
-    setPermissionType(event.target.value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Aquí puedes agregar la lógica para enviar el formulario
-    await permissionContext.createPermission(firstName, lastName, permissionType)
+    await createUpdatePermission()
   };
-     
-     
-     
-     
+
   return (
     <Grid container>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
-        <Grid item xs={12} >
-        <Grid container spacing={3} justifyContent={'flex-end'}>
-            <Button variant="contained" xs={{marginLeft: 'auto'}} onClick={handleClickOpen}>
-              Nuevo Tipo
-            </Button>
-        </Grid>
+          <Grid item xs={12} >
+            <Grid container spacing={3} justifyContent={'flex-end'}>
+              <Button variant="text" xs={{ marginLeft: 'auto' }} onClick={handleClickOpen}>
+                Nuevo tipo de permiso
+              </Button>
+            </Grid>
           </Grid>
           <Grid item xs={12} >
-            <FormLabel   htmlFor="nameEmployee" required>
+            <FormLabel htmlFor="nameEmployee" required>
               Nombre
             </FormLabel>
             <OutlinedInput
               id="nameEmployee"
               name="nameEmployee"
               type="text"
-              value={firstName}
+              value={permissionFormData.nameEmployee}
               onChange={handleInputChange}
               placeholder="John"
               autoComplete="given-name"
@@ -105,7 +110,7 @@ const PermissionForm = () => {
             <OutlinedInput
               id="lastNameEmployee"
               name="lastNameEmployee"
-              value={lastName}
+              value={permissionFormData.lastNameEmployee}
               onChange={handleInputChange}
               type="text"
               placeholder="Doe"
@@ -121,7 +126,7 @@ const PermissionForm = () => {
             <Select
               id="permissionType"
               name="permissionType"
-              value={permissionType}
+              value={permissionFormData.permissionTypeId}
               onChange={handleInputChange}
               displayEmpty
               required
@@ -131,7 +136,7 @@ const PermissionForm = () => {
                 <em>Seleccione un tipo de permiso</em>
               </MenuItem>
               {
-                permissionContext?.permissionsType.map((pt,index) => (
+                permissionsType.map((pt, index) => (
                   <MenuItem key={index} value={pt.id}>
                     {pt.description}
                   </MenuItem>
@@ -139,42 +144,55 @@ const PermissionForm = () => {
               }
             </Select>
           </Grid>
-        
-          <Grid item xs={12} >
+            
+          <Grid item>
             <Button type="submit" variant="contained" size='large' color="primary">
               Enviar
+            </Button>
+          </Grid>
+          <Grid item  >
+            <Button 
+              type="submit" 
+              variant="outlined" 
+              size='large' 
+              color="primary"
+              onClick={cleanPermissionFormData}
+              >
+              Limpiar
             </Button>
           </Grid>
         </Grid>
       </form>
 
-    {/* Modal para crear nuevo tipo de permiso */}
-    <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Nuevo Tipo de Permiso</DialogTitle>
-      <DialogContent>
-        <Grid>
+      {/* Modal para crear nuevo tipo de permiso */}
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Nuevo Tipo de Permiso</DialogTitle>
+        <DialogContent>
+          <Grid>
             <FormLabel htmlFor="newPermission" required>
               Descripcion del permiso
             </FormLabel>
             <OutlinedInput
               id="newPermission"
               name="newPermission"
-              type="text" 
+              type="text"
               placeholder="Permission"
               required
               fullWidth
+              value={newPermission}
+              onChange={handleInputChange}
             />
-        </Grid>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Cancelar
-        </Button>
-        <Button onClick={handleClose} color="primary">
-          Guardar
-        </Button>
-      </DialogActions>
-    </Dialog>
+          </Grid>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={CreatePermissionTypehandle} color="primary">
+            Guardar
+          </Button>
+        </DialogActions>
+      </Dialog>
 
     </Grid>
   );

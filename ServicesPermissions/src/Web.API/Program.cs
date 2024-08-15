@@ -6,23 +6,11 @@ using Web.API.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:5173")
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
-});
-
 // injectando las dependencias
 builder.Services
-        .AddPresentation()
+        .AddPresentation(builder.Configuration)
         .AddInfraestructure(builder.Configuration)
         .AddApplication();
-
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 var app = builder.Build();

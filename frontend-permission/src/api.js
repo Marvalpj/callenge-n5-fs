@@ -10,6 +10,7 @@ const api = axios.create({
 api.interceptors.response.use(
     (response) => response,
     (error) => {
+        console.log(error)
         // Manejo de errores
         if (error.response) {
             // Si hay respuesta del servidor

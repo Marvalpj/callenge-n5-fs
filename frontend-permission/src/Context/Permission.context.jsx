@@ -4,18 +4,31 @@ import { toast } from 'sonner';
 
 const PermissionContext = React.createContext();
 
-const PermissionProvider = ({children}) => {
+const STATES = {
+  create: 'CREATE',
+  update: 'UPDATE'
+}
+
+const PermissionProvider = ({ children }) => {
   const [permissions, setPermissions] = React.useState([])
   const [permissionsType, setPermissionsType] = React.useState([])
 
+  // state component 
+  const [statusApp, setStatusApp] = React.useState(STATES.create)
+  const [permissionFormData, setPermissionFormData] = React.useState({
+    nameEmployee: '',
+    lastNameEmployee: '',
+    permissionTypeId: 0,
+  })
+
   React.useEffect(() => {
-    (async() => {
+    (async () => {
       await getPermisionsTypes()
     })()
   }, [])
-  
+
   React.useEffect(() => {
-    (async() => {
+    (async () => {
       await getPermisions()
     })()
   }, [])
@@ -25,49 +38,115 @@ const PermissionProvider = ({children}) => {
       .catch(e => {
       })
 
-      if(resPermissions.data)
-        setPermissions(resPermissions.data)
+    if (resPermissions.data)
+      setPermissions(resPermissions.data)
   }
-  
+
   const getPermisionsTypes = async () => {
     const resPermissionsType = await API.get('permissiontype')
       .catch(e => {
 
       })
-      
-      if(resPermissionsType.data)
-        setPermissionsType(resPermissionsType.data)
+
+    if (resPermissionsType.data)
+      setPermissionsType(resPermissionsType.data)
   }
 
-  const createPermission = async (firstName, lastName, permissionType ) => {
+  const createUpdatePermission = async () => {
+
+    switch (statusApp) {
+
+      case STATES.update:
+
+        await updatePermission()
+
+        break;
+
+      default:
+
+        await createPermission()
+    }
+
+    cleanPermissionFormData()
+    await getPermisions()
+  }
+
+  const createPermission = async () => {
+
     const body = {
-      NameEmployee: firstName,
-      LastNameEmployee: lastName,
-      PermissionTypeId: permissionType,
+      ...permissionFormData,
       date: new Date()
     }
 
-    const resPermissionsType = await API.post('permission',{
+    const resPermissionsType = await API.post('permission', {
       ...body
-    }
-    )
-    .catch(e => {
-
     })
+      .catch(e => {
+        return
+      })
 
     toast.success('Permiso creado con exito.');
-    await getPermisions()
   }
-  
+
+  const updatePermission = async () => {
+
+    // toamr id y sacarlo
+    const id = permissionFormData.id
+    delete permissionFormData.id
+
+    const body = {
+      ...permissionFormData,
+      date: new Date()
+    }
+
+    const resPermissionsType = await API.put('permission/'+id, {
+      ...body
+    })
+    .catch(e => {
+        return
+    })
+
+    toast.success('Permiso modificado con exito.');
+  }
+
+
+  const cleanPermissionFormData = () => {
+    setPermissionFormData({
+      nameEmployee: '',
+      lastNameEmployee: '',
+      permissionTypeId: 0,
+    })
+    setStatusApp(STATES.create)
+  }
+
   const createPermissionType = async (description) => {
+    
+    const body = {
+      description
+    }
+
+    const resPermissionsType = await API.post('PermissionType', {
+      ...body
+    })
+      .catch(e => {
+        return
+      })
+
+    toast.success('Permiso creado con exito.');
+
+    await getPermisionsTypes()
 
   }
 
   const permissionsUtils = {
     permissions,
     permissionsType,
-    createPermission,
-    createPermissionType
+    createUpdatePermission,
+    createPermissionType,
+    permissionFormData,
+    setPermissionFormData,
+    setStatusApp,
+    cleanPermissionFormData
   }
 
   return (

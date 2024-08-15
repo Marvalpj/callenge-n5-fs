@@ -23,13 +23,13 @@ namespace Application.Permissions.GetAll
             {
                 await kafkaProducer.ProduceMessage("permission-topic", "get - permissions");
                 
-                IEnumerable<Permission> permissionTypes = await permissionRepository.GetAllAsync();
-
-                return permissionTypes.Select(p => new PermissionResponse(
+                IEnumerable<Permission> permission = await permissionRepository.GetAllAsync();
+                return permission.Select(p => new PermissionResponse(
                     p.Id,
                     p.NameEmployee,
                     p.LastNameEmployee,
                     p.PermissionTypeId,
+                    p.PermissionType.Description,
                     p.Date
                 )).ToList();
 

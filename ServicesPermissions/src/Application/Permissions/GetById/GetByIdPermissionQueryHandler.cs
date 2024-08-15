@@ -31,6 +31,7 @@ namespace Application.Permissions.GetById
                     p.NameEmployee,
                     p.LastNameEmployee,
                     p.PermissionTypeId,
+                    p.PermissionType.Description,
                     p.Date
                 );
 

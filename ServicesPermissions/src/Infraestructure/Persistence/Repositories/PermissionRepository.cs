@@ -14,9 +14,9 @@ namespace Infraestructure.Persistence.Repositories
         }
         public async Task Add(Permission permission) => await this.context.Permissions.AddAsync(permission);
 
-        public async Task<IEnumerable<Permission>> GetAllAsync() => await this.context.Permissions.ToListAsync();
+        public async Task<IEnumerable<Permission>> GetAllAsync() => await this.context.Permissions.Include(p => p.PermissionType).ToListAsync();
 
-        public async Task<Permission?> GetByIdAsync(long id) => await this.context.Permissions.FindAsync(id);
+        public async Task<Permission?> GetByIdAsync(long id) => await this.context.Permissions.Include(p => p.PermissionType).FirstOrDefaultAsync(p => p.Id == id);
 
         public void Update(Permission permission) => this.context.Permissions.Update(permission);
     }

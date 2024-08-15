@@ -10,22 +10,24 @@ namespace Application.Permissions.Common
     public class PermissionResponse
     {
 
-        public long Id { get; private set; }
-        public string NameEmployee { get; private set; }
-        public string LastNameEmployee { get; private set; }
-        public long PermissionTypeId { get; private set; }
-        public DateTime Date { get; private set; }
+        public long Id { get; set; }
+        public string NameEmployee { get; set; }
+        public string LastNameEmployee { get; set; }
+        public long PermissionTypeId { get; set; }
+        public string PermissionType { get; set; }
+        public DateTime Date { get; set; }
         public string FullName => $"{NameEmployee} {LastNameEmployee}";
         public PermissionResponse()
         {
 
         }
-        public PermissionResponse(long id, string nameEmployee, string lastNameEmployee, long permissionTypeId, DateTime date)
+        public PermissionResponse(long id, string nameEmployee, string lastNameEmployee, long permissionTypeId, string permissionType, DateTime date)
         {
             Id = id;
             NameEmployee = nameEmployee;
             LastNameEmployee = lastNameEmployee;
             PermissionTypeId = permissionTypeId;
+            PermissionType = permissionType;
             Date = date;
         }
     }
