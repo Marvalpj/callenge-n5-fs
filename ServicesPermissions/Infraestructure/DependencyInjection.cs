@@ -1,11 +1,13 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using Infraestructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Application.Data;
+using Infraestructure.Persistence;
+using Infraestructure.Persistence.Repositories;
+using Infraestructure.Services;
 using Domain.Primitives;
 using Domain.Permissions;
-using Infraestructure.Persistence.Repositories;
+using Domain.Services;
 using Domain.PermissionTypes;
 
 
@@ -31,6 +33,7 @@ namespace Infraestructure
             services.AddScoped<IPermissionRepository, PermissionRepository>();
             services.AddScoped<IPermissionTypeRepository, PermissionTypeRepository>();
 
+            services.AddScoped<IKafkaProducer>(p => new KafkaProducer(configuration["kafka:bootstrapServer"]));
 
             return services;
         }

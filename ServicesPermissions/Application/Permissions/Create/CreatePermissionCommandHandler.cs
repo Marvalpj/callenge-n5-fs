@@ -1,33 +1,38 @@
 ﻿using Domain.Permissions;
 using Domain.PermissionTypes;
 using Domain.Primitives;
+using Domain.Services;
 using ErrorOr;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Permissions.Create
 {
-    internal class CreatePermissionCommandHandler : IRequestHandler<CreatePermissionCommand, ErrorOr<Unit>>
+    public sealed class CreatePermissionCommandHandler : IRequestHandler<CreatePermissionCommand, ErrorOr<Unit>>
     {
         private readonly IPermissionRepository permissionRepository;
         private readonly IPermissionTypeRepository permissionTypeRepository;
         private readonly IUnitOfWork unitOfWork;
+        private readonly IKafkaProducer kafkaProducer;
 
-        public CreatePermissionCommandHandler(IPermissionRepository permissionRepository, IPermissionTypeRepository permissionTypeRepository, IUnitOfWork unitOfWork)
+        public CreatePermissionCommandHandler(
+            IPermissionRepository permissionRepository, 
+            IPermissionTypeRepository permissionTypeRepository,
+            IUnitOfWork unitOfWork,
+            IKafkaProducer kafkaProducer
+        )
         {
             this.permissionRepository = permissionRepository;
             this.permissionTypeRepository = permissionTypeRepository;
             this.unitOfWork = unitOfWork;
+            this.kafkaProducer = kafkaProducer;
         }
 
         public async Task<ErrorOr<Unit>> Handle(CreatePermissionCommand request, CancellationToken cancellationToken)
         {
             try
             {
+                await kafkaProducer.ProduceMessage("permission-topic", "request - permission");
+                
                 if (string.IsNullOrEmpty(request.NameEmployee))
                     return Error.Validation("Permission.NameEmployee", "Debe enviar el nombre de la descripcion");
                 
@@ -36,8 +41,6 @@ namespace Application.Permissions.Create
                 
                 if (await permissionTypeRepository.GetByIdAsync(request.PermissionTypeId) is not PermissionType permissionType)
                     return Error.NotFound("PermissionType.NotFound", "El tipo de permiso con el id proporcionado no existe");
-
-
 
                 Permission permission = new Permission(
                     request.NameEmployee,

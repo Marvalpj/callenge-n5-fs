@@ -8,8 +8,8 @@ namespace Domain.Permissions
         public long Id { get; private set; }
         public string NameEmployee { get; private set; }
         public string LastNameEmployee { get; private set; }
-        public long PermissionTypeId { get; private set; } // Clave foránea
-        public PermissionType PermissionType { get; private set; } // Navegación a PermissionType
+        public long PermissionTypeId { get; private set; } 
+        public PermissionType PermissionType { get; private set; }
         public DateTime Date { get; private set; }
         public string FullName => $"{NameEmployee} {LastNameEmployee}";
 
@@ -25,5 +25,21 @@ namespace Domain.Permissions
             PermissionTypeId = permissionTypeId;
             Date = date;
         }
+
+        public void UpdatePermission(string? nameEmployee, string? lastNameEmployee, long? permissionTypeId, DateTime? date)
+        {
+            if(nameEmployee != null) 
+                this.NameEmployee = nameEmployee;
+            
+            if (lastNameEmployee != null)
+                this.LastNameEmployee = lastNameEmployee;
+            
+            if (permissionTypeId != null)
+                this.PermissionTypeId = permissionTypeId.Value;
+
+            if (date != null)
+                this.Date = date.Value;
+        }
+
     }
 }
