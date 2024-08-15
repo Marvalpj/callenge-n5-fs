@@ -1,4 +1,5 @@
-﻿using Domain.Permissions;
+﻿using Domain.DomainErrors;
+using Domain.Permissions;
 using Domain.PermissionTypes;
 using Domain.Primitives;
 using Domain.Services;
@@ -38,9 +39,11 @@ namespace Application.Permissions.Create
                 
                 if (string.IsNullOrEmpty(request.LastNameEmployee))
                     return Error.Validation("Permission.LastNameEmployee", "Debe enviar el nombre de la descripcion");
-                
+
                 if (await permissionTypeRepository.GetByIdAsync(request.PermissionTypeId) is not PermissionType permissionType)
-                    return Error.NotFound("PermissionType.NotFound", "El tipo de permiso con el id proporcionado no existe");
+                    return Errors.Permission.PermissionTypeIdDoesNotExist;
+
+
 
                 Permission permission = new Permission(
                     request.NameEmployee,

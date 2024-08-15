@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infraestructure", "src\Infr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.API", "src\Web.API\Web.API.csproj", "{779E9C6A-F6CD-4AED-A725-CA56E8F08E2C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D958BAC5-D4C5-452B-8CF3-95A87C16D9B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{4CA02893-5C0F-4116-9AC3-1E9081B3499E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Permissions.UnitTests", "tests\UnitTest\Application.Permissions.UnitTests\Application.Permissions.UnitTests.csproj", "{BA076D29-3B53-43DE-9002-B219F81A5E76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +42,13 @@ Global
 		{779E9C6A-F6CD-4AED-A725-CA56E8F08E2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{779E9C6A-F6CD-4AED-A725-CA56E8F08E2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{779E9C6A-F6CD-4AED-A725-CA56E8F08E2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA076D29-3B53-43DE-9002-B219F81A5E76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA076D29-3B53-43DE-9002-B219F81A5E76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA076D29-3B53-43DE-9002-B219F81A5E76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA076D29-3B53-43DE-9002-B219F81A5E76}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4CA02893-5C0F-4116-9AC3-1E9081B3499E} = {D958BAC5-D4C5-452B-8CF3-95A87C16D9B6}
+		{BA076D29-3B53-43DE-9002-B219F81A5E76} = {4CA02893-5C0F-4116-9AC3-1E9081B3499E}
 	EndGlobalSection
 EndGlobal
