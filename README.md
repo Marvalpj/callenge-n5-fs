@@ -5,7 +5,7 @@ ver que los servicio sqlserver y kafka esten corriendo
 # 2- conectar a sqlserver y crear una tabla
 crear base de datos para que ef cree y mapee las entidades en ella
 
-# 3- condifurar el appseting.json del api
+# 3- configurar el appseting.json del api
 {
   "Logging": {
     "LogLevel": {
