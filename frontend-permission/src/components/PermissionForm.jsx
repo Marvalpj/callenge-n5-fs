@@ -75,8 +75,15 @@ const PermissionForm = () => {
     <Grid container>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <FormLabel htmlFor="nameEmployee" required>
+        <Grid item xs={12} >
+        <Grid container spacing={3} justifyContent={'flex-end'}>
+            <Button variant="contained" xs={{marginLeft: 'auto'}} onClick={handleClickOpen}>
+              Nuevo Tipo
+            </Button>
+        </Grid>
+          </Grid>
+          <Grid item xs={12} >
+            <FormLabel   htmlFor="nameEmployee" required>
               Nombre
             </FormLabel>
             <OutlinedInput
@@ -91,7 +98,7 @@ const PermissionForm = () => {
               fullWidth
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} >
             <FormLabel htmlFor="lastNameEmployee" required>
               Apellido
             </FormLabel>
@@ -107,7 +114,7 @@ const PermissionForm = () => {
               fullWidth
             />
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={12}>
             <FormLabel htmlFor="permissionType" required>
               Tipo de Permiso
             </FormLabel>
@@ -132,13 +139,9 @@ const PermissionForm = () => {
               }
             </Select>
           </Grid>
-          <Grid item xs={3}>
-            <Button variant="contained" onClick={handleClickOpen}>
-              Nuevo Tipo
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">
+        
+          <Grid item xs={12} >
+            <Button type="submit" variant="contained" size='large' color="primary">
               Enviar
             </Button>
           </Grid>
@@ -156,7 +159,7 @@ const PermissionForm = () => {
             <OutlinedInput
               id="newPermission"
               name="newPermission"
-              type="text"
+              type="text" 
               placeholder="Permission"
               required
               fullWidth

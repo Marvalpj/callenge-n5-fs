@@ -49,7 +49,7 @@ function App() {
       {/*notificaciones */}
       <Toaster position="top-right" />
 
-      <Grid container spacing={3} sx={{ padding: 2 }}>
+      {/* <Grid container spacing={3} sx={{ padding: 2 }}>
         <Grid item xs={12}>
           <Card sx={{ width: '100%' }}>
             <CardHeader title="Gestion de permisos"
@@ -61,11 +61,36 @@ function App() {
             </CardContent>
           </Card>
         </Grid>
-      </Grid>
+      </Grid> */}
 
-      <Grid container spacing={3} sx={{ padding: 2 }}>
+      {/* <Grid container spacing={3} sx={{ padding: 2 }}>
         <Grid item xs={12} >
           <Card sx={{ width: '100%' }}>
+            <CardHeader title="Permisos"
+              sx={{
+                textAlign: 'left'
+              }} />
+            <CardContent>
+              <PermissionTable />
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid> */}
+
+      <Grid container spacing={3} sx={{ padding: 2 }}>
+        <Grid item xs={12} md={5}>
+          <Card sx={{ width: '100%', height: 500 }}>
+            <CardHeader title="Gestion de permisos"
+              sx={{
+                textAlign: 'left'
+              }} />
+            <CardContent>
+              <PermissionForm />
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} md={7}>
+          <Card sx={{ width: '100%', height: '100%', maxHeight: 500, overflowY: 'auto' }}>
             <CardHeader title="Permisos"
               sx={{
                 textAlign: 'left'

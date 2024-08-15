@@ -32,7 +32,7 @@ const PermissionTable = () => {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 650 }} md={{maxHeight: 550 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Id</TableCell>
@@ -54,7 +54,7 @@ const PermissionTable = () => {
               <TableCell align='right'>{row.nameEmployee}</TableCell>
               <TableCell align="right">{row.lastNameEmployee}</TableCell>
               <TableCell align="right">{row.permissionTypeId}</TableCell>
-              <TableCell align="right">{row.date}</TableCell>
+              <TableCell align="right">{row.date.toString()}</TableCell>
             </TableRow>
           ))}
         </TableBody>
