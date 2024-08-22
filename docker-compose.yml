@@ -36,3 +36,15 @@ services:
       - SA_PASSWORD=YourStrong!Passw0rd
     ports:
       - 1433:1433
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+    container_name: elasticsearch
+    environment:
+      - "discovery.type=single-node" 
+      - "xpack.security.http.ssl.enabled=false"
+      - "xpack.license.self_generated.type=trial"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ELASTIC_PASSWORD=12345678"
+    ports:
+      - "9200:9200"
