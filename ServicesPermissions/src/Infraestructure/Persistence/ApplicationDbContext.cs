@@ -23,6 +23,11 @@ namespace Infraestructure.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+
+            modelBuilder.Entity<PermissionType>().HasData(
+                new PermissionType {Id = 1, Description = "Read"},
+                new PermissionType { Id = 2, Description = "Write"}
+            );
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
