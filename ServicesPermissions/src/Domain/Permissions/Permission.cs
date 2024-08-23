@@ -25,6 +25,17 @@ namespace Domain.Permissions
             PermissionTypeId = permissionTypeId;
             Date = date;
         }
+        
+        public Permission(long id, string nameEmployee, string lastNameEmployee, long permissionTypeId, DateTime date, PermissionType permissionType)
+        {
+            Id = id;
+            NameEmployee = nameEmployee;
+            LastNameEmployee = lastNameEmployee;
+            PermissionTypeId = permissionTypeId;
+            Date = date;
+            PermissionType = permissionType;
+        }
+
 
         public void UpdatePermission(string? nameEmployee, string? lastNameEmployee, long? permissionTypeId, DateTime? date)
         {

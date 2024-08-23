@@ -6,6 +6,6 @@ namespace Domain.Permissions
         Task<IEnumerable<Permission>> GetAllAsync();
         Task<Permission?> GetByIdAsync(long id);
         Task Add(Permission permission);
-        void Update(Permission permission);
+        Task UpdateAsync(long id, string? nameEmployee, string? lastNameEmployee, long? permissionTypeId, DateTime? date);
     }
 }

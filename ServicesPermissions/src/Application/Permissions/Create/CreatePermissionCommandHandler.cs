@@ -43,8 +43,6 @@ namespace Application.Permissions.Create
                 if (await permissionTypeRepository.GetByIdAsync(request.PermissionTypeId) is not PermissionType permissionType)
                     return Errors.Permission.PermissionTypeIdDoesNotExist;
 
-
-
                 Permission permission = new Permission(
                     request.NameEmployee,
                     request.LastNameEmployee,
@@ -54,7 +52,7 @@ namespace Application.Permissions.Create
 
                 await permissionRepository.Add(permission);
 
-                await unitOfWork.SaveChangesAsync(cancellationToken);
+                //await unitOfWork.SaveChangesAsync(cancellationToken);
 
                 return Unit.Value;
             }

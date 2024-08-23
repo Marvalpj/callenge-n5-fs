@@ -8,7 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Confluent.Kafka" Version="2.5.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.7" />
+    <PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.15.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
   </ItemGroup>
 

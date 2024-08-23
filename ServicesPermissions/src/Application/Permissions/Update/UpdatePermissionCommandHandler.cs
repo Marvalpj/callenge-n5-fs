@@ -31,7 +31,6 @@ namespace Application.Permissions.Update
 
             await kafkaProducer.ProduceMessage("permission-topic", "modify - permission");
 
-
             if (await permissionRepository.GetByIdAsync(request.Id) is not Permission permission)
                 return Error.NotFound("Permission.NotFound", "El permiso con el id proporcionado no existe");
 
@@ -39,11 +38,9 @@ namespace Application.Permissions.Update
                 if (await permissionTypeRepository.GetByIdAsync(request.PermissionTypeId.Value) is not PermissionType permissionType)
                     return Error.NotFound("PermissionType.NotFound", "El tipo de permiso con el id proporcionado no existe");
 
-            permission.UpdatePermission(request.NameEmployee, request.LastNameEmployee, request.PermissionTypeId, request.Date);
+            await permissionRepository.UpdateAsync(request.Id , request.NameEmployee, request.LastNameEmployee, request.PermissionTypeId, request.Date);
 
-            permissionRepository.Update(permission);
-
-            await unitOfWork.SaveChangesAsync();
+            //await unitOfWork.SaveChangesAsync();
 
             return Unit.Value;
         }
