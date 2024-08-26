@@ -13,9 +13,8 @@ namespace Infraestructure.Services
             var config = new ProducerConfig
             {
                 BootstrapServers = bootstrapServers,
-                Acks = Acks.All, // Espera a que todos los réplicas confirmen el mensaje
-                EnableIdempotence = true, // Habilita la idempotencia
-                MessageSendMaxRetries = 2 // Número de reintentos en caso de fallo
+                EnableIdempotence = true,
+                MessageSendMaxRetries = 2
             };
             producer = new ProducerBuilder<Null, string>(config).Build();
         }

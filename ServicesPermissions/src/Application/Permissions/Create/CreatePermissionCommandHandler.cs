@@ -33,12 +33,13 @@ namespace Application.Permissions.Create
             try
             {
                 await kafkaProducer.ProduceMessage("permission-topic", "request - permission");
-                
+
                 if (string.IsNullOrEmpty(request.NameEmployee))
-                    return Error.Validation("Permission.NameEmployee", "Debe enviar el nombre de la descripcion");
-                
+                    return Errors.Permission.PermissionNameIsEmpty;
+
+
                 if (string.IsNullOrEmpty(request.LastNameEmployee))
-                    return Error.Validation("Permission.LastNameEmployee", "Debe enviar el nombre de la descripcion");
+                    return Errors.Permission.PermissionLastNameIsEmpty;
 
                 if (await permissionTypeRepository.GetByIdAsync(request.PermissionTypeId) is not PermissionType permissionType)
                     return Errors.Permission.PermissionTypeIdDoesNotExist;

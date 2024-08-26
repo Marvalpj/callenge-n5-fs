@@ -34,6 +34,14 @@ namespace Domain.Permissions
             PermissionTypeId = permissionTypeId;
             Date = date;
             PermissionType = permissionType;
+        }   
+        public Permission(long id, string nameEmployee, string lastNameEmployee, long permissionTypeId, DateTime date)
+        {
+            Id = id;
+            NameEmployee = nameEmployee;
+            LastNameEmployee = lastNameEmployee;
+            PermissionTypeId = permissionTypeId;
+            Date = date;
         }
 
 

@@ -18,5 +18,10 @@ namespace Domain.PermissionTypes
         {
             Description = description;
         }
+        public PermissionType(long id, string description)
+        {
+            Id = id;
+            Description = description;
+        }
     }
 }

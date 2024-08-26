@@ -1,4 +1,5 @@
-﻿using Domain.Permissions;
+﻿using Domain.DomainErrors;
+using Domain.Permissions;
 using Domain.PermissionTypes;
 using Domain.Primitives;
 using Domain.Services;
@@ -30,13 +31,13 @@ namespace Application.Permissions.Update
         {
 
             await kafkaProducer.ProduceMessage("permission-topic", "modify - permission");
-
+            
             if (await permissionRepository.GetByIdAsync(request.Id) is not Permission permission)
-                return Error.NotFound("Permission.NotFound", "El permiso con el id proporcionado no existe");
+                return Errors.Permission.PermissionIdDoesNotExist;
 
             if(request.PermissionTypeId != null )
                 if (await permissionTypeRepository.GetByIdAsync(request.PermissionTypeId.Value) is not PermissionType permissionType)
-                    return Error.NotFound("PermissionType.NotFound", "El tipo de permiso con el id proporcionado no existe");
+                    return Errors.Permission.PermissionTypeIdDoesNotExist;
 
             await permissionRepository.UpdateAsync(request.Id , request.NameEmployee, request.LastNameEmployee, request.PermissionTypeId, request.Date);
 
