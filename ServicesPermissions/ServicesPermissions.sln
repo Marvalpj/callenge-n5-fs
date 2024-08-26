@@ -3,27 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Application\Application.csproj", "{8F8D7AF9-B4A2-4C3E-BD02-36CC36ECC6A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Application\Application.csproj", "{8F8D7AF9-B4A2-4C3E-BD02-36CC36ECC6A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Domain\Domain.csproj", "{08B4BCC4-6ED9-443F-9176-E685F9CE487A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Domain\Domain.csproj", "{08B4BCC4-6ED9-443F-9176-E685F9CE487A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infraestructure", "src\Infraestructure\Infraestructure.csproj", "{F19BEA35-970D-45AE-915C-DB8FD375BBC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infraestructure", "src\Infraestructure\Infraestructure.csproj", "{F19BEA35-970D-45AE-915C-DB8FD375BBC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.API", "src\Web.API\Web.API.csproj", "{779E9C6A-F6CD-4AED-A725-CA56E8F08E2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.API", "src\Web.API\Web.API.csproj", "{779E9C6A-F6CD-4AED-A725-CA56E8F08E2C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D958BAC5-D4C5-452B-8CF3-95A87C16D9B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Permissions.UnitTests", "tests\UnitTest\Application.Permissions.UnitTests\Application.Permissions.UnitTests.csproj", "{BA076D29-3B53-43DE-9002-B219F81A5E76}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{4CA02893-5C0F-4116-9AC3-1E9081B3499E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Permissions.UnitTests", "tests\UnitTest\Application.Permissions.UnitTests\Application.Permissions.UnitTests.csproj", "{BA076D29-3B53-43DE-9002-B219F81A5E76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Permission.WebApi.Tests", "tests\IntegrationTest\Permission.WebApi.Tests\Permission.WebApi.Tests.csproj", "{56C8054E-BBA4-4620-AB04-17B31639EDC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8F8D7AF9-B4A2-4C3E-BD02-36CC36ECC6A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -46,9 +41,19 @@ Global
 		{BA076D29-3B53-43DE-9002-B219F81A5E76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA076D29-3B53-43DE-9002-B219F81A5E76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA076D29-3B53-43DE-9002-B219F81A5E76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56C8054E-BBA4-4620-AB04-17B31639EDC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56C8054E-BBA4-4620-AB04-17B31639EDC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56C8054E-BBA4-4620-AB04-17B31639EDC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56C8054E-BBA4-4620-AB04-17B31639EDC5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4CA02893-5C0F-4116-9AC3-1E9081B3499E} = {D958BAC5-D4C5-452B-8CF3-95A87C16D9B6}
 		{BA076D29-3B53-43DE-9002-B219F81A5E76} = {4CA02893-5C0F-4116-9AC3-1E9081B3499E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C150B75-B094-43CD-AFFC-90710567BAE8}
 	EndGlobalSection
 EndGlobal
