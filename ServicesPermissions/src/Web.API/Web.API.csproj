@@ -24,4 +24,9 @@
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Infraestructure\Infraestructure.csproj" />
   </ItemGroup>	
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Permission.WebApi.Tests" />
+  </ItemGroup>
+
 </Project>
