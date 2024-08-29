@@ -42,7 +42,6 @@ const PermissionForm = () => {
   
   const CreatePermissionTypehandle = async (event) => {
     event.preventDefault();
-    console.log(newPermission)
     await createPermissionType(newPermission)
     setNewPermission('')
     setOpen(false);
@@ -136,7 +135,7 @@ const PermissionForm = () => {
                 <em>Seleccione un tipo de permiso</em>
               </MenuItem>
               {
-                permissionsType.map((pt, index) => (
+                Array.isArray(permissionsType) && permissionsType?.map((pt, index) => (
                   <MenuItem key={index} value={pt.id}>
                     {pt.description}
                   </MenuItem>

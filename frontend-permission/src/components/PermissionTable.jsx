@@ -25,12 +25,10 @@ const PermissionTable = () => {
   const [dataTable, setDataTable] = React.useState([])
 
   React.useEffect(() => {
-
-    if (permissions) {
+    if (permissions && Array.isArray(permissions)) {
       const newData = permissions.map(item =>
         createData(item.id, item.nameEmployee, item.lastNameEmployee, item.permissionTypeId, item.permissionType, item.date)
       );
-      // Actualiza el estado con el nuevo array
       setDataTable(newData);
     }
   }, [permissions]);
@@ -42,8 +40,6 @@ const PermissionTable = () => {
 
   const editHandler = (permission) => {
     
-    console.log()
-
     setPermissionFormData({
       id: permission.id,
       nameEmployee: permission.nameEmployee,

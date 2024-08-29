@@ -73,40 +73,42 @@ const PermissionProvider = ({ children }) => {
 
   const createPermission = async () => {
 
-    const body = {
-      ...permissionFormData,
-      date: new Date()
-    }
-
-    const resPermissionsType = await API.post('permission', {
-      ...body
-    })
-      .catch(e => {
-        return
+    try
+    {
+      const body = {
+        ...permissionFormData,
+        date: new Date()
+      }
+  
+      const resPermissionsType = await API.post('permission', {
+        ...body
       })
-
-    toast.success('Permiso creado con exito.');
+  
+      toast.success('Permiso creado con exito.');
+    }
+    catch{}
   }
 
   const updatePermission = async () => {
 
-    // toamr id y sacarlo
-    const id = permissionFormData.id
-    delete permissionFormData.id
+    try
+    {
+      // toamr id y sacarlo
+      const id = permissionFormData.id
+      delete permissionFormData.id
 
-    const body = {
-      ...permissionFormData,
-      date: new Date()
-    }
+      const body = {
+        ...permissionFormData,
+        date: new Date()
+      }
 
-    const resPermissionsType = await API.put('permission/'+id, {
-      ...body
-    })
-    .catch(e => {
-        return
-    })
+      const resPermissionsType = await API.put('permission/'+id, {
+        ...body
+      })
 
-    toast.success('Permiso modificado con exito.');
+      toast.success('Permiso modificado con exito.');
+
+    }catch{}
   }
 
 
@@ -121,21 +123,21 @@ const PermissionProvider = ({ children }) => {
 
   const createPermissionType = async (description) => {
     
-    const body = {
-      description
-    }
-
-    const resPermissionsType = await API.post('PermissionType', {
-      ...body
-    })
-      .catch(e => {
-        return
+    try
+    {
+      const body = {
+        description
+      }
+  
+      const resPermissionsType = await API.post('PermissionType', {
+        ...body
       })
+  
+      toast.success('Tipo de Permiso creado con exito.');
+  
+      await getPermisionsTypes()
 
-    toast.success('Permiso creado con exito.');
-
-    await getPermisionsTypes()
-
+    }catch{}
   }
 
   const permissionsUtils = {
