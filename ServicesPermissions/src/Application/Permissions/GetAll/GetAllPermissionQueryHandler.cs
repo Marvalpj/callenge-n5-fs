@@ -24,6 +24,7 @@ namespace Application.Permissions.GetAll
                 await kafkaProducer.ProduceMessage("permission-topic", "get - permissions");
                 
                 IEnumerable<Permission> permission = await permissionRepository.GetAllAsync();
+                
                 return permission.Select(p => new PermissionResponse(
                     p.Id,
                     p.NameEmployee,
@@ -32,7 +33,6 @@ namespace Application.Permissions.GetAll
                     p.PermissionType.Description,
                     p.Date
                 )).ToList();
-
             }
             catch (Exception ex)
             {

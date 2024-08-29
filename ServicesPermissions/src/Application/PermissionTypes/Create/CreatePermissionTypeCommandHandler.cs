@@ -3,6 +3,7 @@ using Domain.Primitives;
 using Domain.Services;
 using ErrorOr;
 using MediatR;
+using Newtonsoft.Json;
 
 namespace Application.PermissionTypes.Create
 {
@@ -26,8 +27,6 @@ namespace Application.PermissionTypes.Create
         {
             try
             {
-                await kafkaProducer.ProduceMessage("permission-topic", "request - permissionType");
-
                 if (string.IsNullOrEmpty(request.Description))
                     return Error.Validation("PermissionType.Description", "Debe enviar el nombre de la descripcion");
 
@@ -36,6 +35,8 @@ namespace Application.PermissionTypes.Create
                 await permissionTypeRepository.Add(permissionType);
 
                 await unitOfWork.SaveChangesAsync(cancellationToken);
+                
+                await kafkaProducer.ProduceMessage("permission-topic", "request - permissionType",JsonConvert.SerializeObject(permissionType));
 
                 return Unit.Value;
             }

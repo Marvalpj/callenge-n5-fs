@@ -5,6 +5,7 @@ using Domain.Primitives;
 using Domain.Services;
 using ErrorOr;
 using MediatR;
+using Newtonsoft.Json;
 
 namespace Application.Permissions.Create
 {
@@ -32,8 +33,6 @@ namespace Application.Permissions.Create
         {
             try
             {
-                await kafkaProducer.ProduceMessage("permission-topic", "request - permission");
-
                 if (string.IsNullOrEmpty(request.NameEmployee))
                     return Errors.Permission.PermissionNameIsEmpty;
 
@@ -54,6 +53,8 @@ namespace Application.Permissions.Create
                 await permissionRepository.Add(permission);
 
                 //await unitOfWork.SaveChangesAsync(cancellationToken);
+
+                await kafkaProducer.ProduceMessage("permission-topic", "request permission", JsonConvert.SerializeObject(permission));
 
                 return Unit.Value;
             }

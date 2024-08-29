@@ -5,6 +5,7 @@ using Domain.Primitives;
 using Domain.Services;
 using ErrorOr;
 using MediatR;
+using Newtonsoft.Json;
 
 namespace Application.Permissions.Update
 {
@@ -29,9 +30,6 @@ namespace Application.Permissions.Update
 
         public async Task<ErrorOr<Unit>> Handle(UpdatePermissionCommand request, CancellationToken cancellationToken)
         {
-
-            await kafkaProducer.ProduceMessage("permission-topic", "modify - permission");
-            
             if (await permissionRepository.GetByIdAsync(request.Id) is not Permission permission)
                 return Errors.Permission.PermissionIdDoesNotExist;
 
@@ -42,6 +40,8 @@ namespace Application.Permissions.Update
             await permissionRepository.UpdateAsync(request.Id , request.NameEmployee, request.LastNameEmployee, request.PermissionTypeId, request.Date);
 
             //await unitOfWork.SaveChangesAsync();
+            
+            await kafkaProducer.ProduceMessage("permission-topic", "modify - permission", JsonConvert.SerializeObject(permission));
 
             return Unit.Value;
         }

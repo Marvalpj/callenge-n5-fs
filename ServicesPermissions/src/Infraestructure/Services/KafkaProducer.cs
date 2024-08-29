@@ -1,6 +1,6 @@
 ﻿using Confluent.Kafka;
 using Domain.Services;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace Infraestructure.Services
 {
@@ -19,28 +19,28 @@ namespace Infraestructure.Services
             producer = new ProducerBuilder<Null, string>(config).Build();
         }
 
-        public async Task ProduceMessage(string topic, string operationType)
+        public async Task ProduceMessage(string topic, string operationType, string content = "")
         {
             try
             {
-                var message = new
+                KafkaMessage kafkaMessage = new KafkaMessage()
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    NameOperation = operationType
+                    Id = Guid.NewGuid(),
+                    NameOperation = operationType,
+                    Content = content
                 };
 
-                var jsonMessage = JsonSerializer.Serialize(message);
-                var deliveryResult = await producer.ProduceAsync(topic, new Message<Null, string> { Value = jsonMessage });
+                await producer.ProduceAsync(topic, new Message<Null, string> { Value = JsonConvert.SerializeObject(kafkaMessage) });
             }
             catch (ProduceException<Null, string> ex)
             {
                 Console.WriteLine($"Error al enviar el mensaje: {ex.Error.Reason}");
-                throw; // Lanza la excepción original
+                throw;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error inesperado: {ex.Message}");
-                throw; // Lanza la excepción original
+                throw; 
             }
         }
     }
