@@ -1,5 +1,6 @@
 ﻿using Domain.PermissionTypes;
 using Domain.Primitives;
+using System.Text.Json.Serialization;
 
 namespace Domain.Permissions
 {
@@ -8,7 +9,7 @@ namespace Domain.Permissions
         public long Id { get; private set; }
         public string NameEmployee { get; private set; }
         public string LastNameEmployee { get; private set; }
-        public long PermissionTypeId { get; private set; } 
+        public long PermissionTypeId { get; private set; }
         public PermissionType PermissionType { get; private set; }
         public DateTime Date { get; private set; }
         public string FullName => $"{NameEmployee} {LastNameEmployee}";

@@ -80,7 +80,7 @@ const PermissionProvider = ({ children }) => {
         date: new Date()
       }
   
-      const resPermissionsType = await API.post('permission', {
+      const res = await API.post('permission', {
         ...body
       })
   
@@ -102,7 +102,7 @@ const PermissionProvider = ({ children }) => {
         date: new Date()
       }
 
-      const resPermissionsType = await API.put('permission/'+id, {
+      const res = await API.put('permission/'+id, {
         ...body
       })
 

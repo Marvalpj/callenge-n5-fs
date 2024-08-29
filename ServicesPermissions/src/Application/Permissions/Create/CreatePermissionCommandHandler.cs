@@ -53,8 +53,8 @@ namespace Application.Permissions.Create
                 await permissionRepository.Add(permission);
 
                 //await unitOfWork.SaveChangesAsync(cancellationToken);
-
-                await kafkaProducer.ProduceMessage("permission-topic", "request permission", JsonConvert.SerializeObject(permission));
+                var settings = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+                await kafkaProducer.ProduceMessage("permission-topic", "request permission", JsonConvert.SerializeObject(permission, settings));
 
                 return Unit.Value;
             }
