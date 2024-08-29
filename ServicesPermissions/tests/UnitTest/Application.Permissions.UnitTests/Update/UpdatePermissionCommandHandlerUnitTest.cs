@@ -29,7 +29,7 @@ namespace Application.Permissions.UnitTests.Update
             mockPermissionTypeRepository.Setup(repo => repo.GetByIdAsync(1)).ReturnsAsync(permissionTypeMock);
             
             mockKafkaProducer = new Mock<IKafkaProducer>();
-            mockKafkaProducer.Setup(kafka => kafka.ProduceMessage(It.IsAny<string>(), It.IsAny<string>())).Returns(Task.CompletedTask);
+            mockKafkaProducer.Setup(kafka => kafka.ProduceMessage(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(Task.CompletedTask);
 
             mockUnitOfWork = new Mock<IUnitOfWork>();
 
