@@ -48,3 +48,13 @@ services:
     ports:
       - "9092:9092"
       - "29092:29092"
+  
+  # frontend:
+  #   build: ./frontend-permission
+  #   ports:
+  #     - "8080:8080"
+  
+  # backend:
+  #   build: ./ServicesPermissions
+  #   port:
+  #     - "8081:8081"
